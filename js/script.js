@@ -11,7 +11,7 @@
 // Esiste un oggetto JS in grado di gestire le date?
 // Esistono dei metodi per trasformare una data in millisecondi?
 
-// Orologio ora
+// Now
 function mostraOrologio() {
     let data = new Date();
     let ore = data.getHours();
@@ -23,22 +23,47 @@ function mostraOrologio() {
     if(secondi < 10) { secondi = '0' + secondi; }
   
     document.getElementById("orologio").innerHTML = ore+':'+minuti+':'+secondi;
-  }
+}
   
-  setInterval(mostraOrologio, 1000);
+setInterval(mostraOrologio, 1000);
 
-
-// Data attuale
-let prova = new Date();
-console.log (prova);
 
 
 // Data lezione
-const lezioni = new Date ();
-lezioni.setDate(12);
-console.log (lezioni);
+const lezione = new Date ("February 12, 2024 09:30:00");
+console.log (lezione);
+
+document.getElementById("lezione").innerHTML = lezione;
 
 
-//Tempo alla lezione in ms 
-const tempoRimasto = lezioni - prova;
-console.log (tempoRimasto);
+// Countdown
+const countdown = setInterval(function() {
+
+    let now = new Date();
+
+    let temporimasto = lezione - now;
+
+    let secondi = Math.floor(temporimasto / 1000);
+
+    let minuti = Math.floor(secondi / 60);
+
+    let ore = Math.floor(minuti / 60);
+
+    secondi = secondi % 60;
+
+    minuti = minuti % 60;
+
+    ore = ore % 24;
+
+    if(ore < 10) { ore = '0' + ore; }
+    if(minuti < 10) { minuti = '0' + minuti; }
+    if(secondi < 10) { secondi = '0' + secondi; }
+
+    document.getElementById("timer").innerHTML = ore+'h : '+minuti+'m : '+secondi+'s';
+
+    if (countdown < 0) {
+        clearInterval (countdown);
+        document.getElementById("timer").innerHTML = "Tempo esaurito";
+    }
+
+}, 1000);
